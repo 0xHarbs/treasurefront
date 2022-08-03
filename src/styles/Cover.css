@@ -1,0 +1,24 @@
+.cover {
+    align-items: center;
+    margin-top: 160px;
+    padding: 0px 40px;
+    text-align: center;
+    color: #fff;
+}
+
+.cover__text>h1 {
+    font-size: 44px;
+    margin-bottom: 16px;
+    letter-spacing: 1px;
+    font-weight: bold;;
+}
+
+.cover__text>p {
+    margin-bottom: 32px;
+    font-size: 18px;
+    color: #ad8f2a;
+}
+
+.coverButton {
+    margin: 0px 8px
+}

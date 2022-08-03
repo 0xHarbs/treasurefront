@@ -1,0 +1,37 @@
+.lendsummary {
+    color: #fff;
+    width: 45%;
+}
+
+.lendsummary__container {
+    border: 1px solid #fff;
+    border-radius: 12px;
+    margin: 16px;
+    padding: 24px;
+    min-height: 200px;
+}
+
+.lendsummary__contentContainer {
+    display: flex;
+    align-items: center;
+    padding: 24px 16px
+}
+
+.lendsummary__logoContainer {
+    width: 30%;
+}
+
+.lendsummary__textContainer {
+    width: 100%;
+    padding: 0px 0px 0px 32px;
+    text-align: left;
+}
+
+.lendsummary__textBox {
+    margin: 0px 0px 8px;
+}
+
+.lendsummary__logoContainer > img {
+    max-width: 80px;
+    max-height: 80px;
+}

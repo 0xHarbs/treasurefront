@@ -1,0 +1,92 @@
+.info {
+    margin-top: 120px;
+    padding: 40px;
+}
+
+.info__valueSection {
+    margin-top: 32px;
+    padding: 10px 40px;
+    color: #333;
+}
+
+.info__vaultSection {
+    align-items: center;
+    justify-content: space-between;
+    padding: 64px 32px;
+    margin: 96px 32px 32px 32px;
+    background-color: #0E1119;
+    border-radius: 8px;
+    color: #fff;
+}
+
+.info__vaultSection > {
+    color: #8AACF4;
+}
+
+.info__valuePoints {
+    margin-top: 32px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.info__image {
+    width: 150px;
+    margin-bottom: 32px;
+}
+
+.info__title>p {
+    margin-top: 16px;
+    color: #fff;
+}
+
+.info__title>h3 {
+    letter-spacing: 1px;
+    color: #fff;
+    font-weight: 300;
+    margin-bottom: 16px;
+}
+
+.info__title>h1 {
+    color: #ad8f2a;
+}
+
+.info__valueSection>h1 {
+    text-align: left;
+}
+
+.info__valueBucket {
+    width: 28%;
+    color: #F1F1F3;
+}
+
+
+.info__valueBucket > h3 {
+    color: #fff;
+    letter-spacing: 1px;
+}
+
+.info__valueBucket>p {
+    color: #A5A8B6;
+    margin-top: 16px;
+}
+
+.info__protocolValues {
+    display: flex;
+    align-items: center;
+    margin-top: 48px;
+    text-align: left;
+}
+
+.info__protocolBucket {
+    margin:0px 24px 0px 32px;
+    padding: 0px 24px 0px 32px;
+    width: 50%;
+    color: #ad8f2a;
+}
+
+.info__protocolBucket > p {
+    margin-top: 8px;
+    color: #A5A8B6;
+}

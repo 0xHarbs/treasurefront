@@ -1,0 +1,14 @@
+.Choose {
+    margin-top: 64px;
+}
+
+.Choose > h1 {
+    color: #fff;
+}
+
+.choose__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 64px;
+}

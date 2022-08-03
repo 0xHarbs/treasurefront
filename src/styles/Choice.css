@@ -1,0 +1,11 @@
+.choice {
+    color: #fff;
+    width: 45%;
+}
+
+.choice__container {
+    border: 1px solid #fff;
+    margin: 16px;
+    padding: 24px;
+    min-height: 200px;
+}

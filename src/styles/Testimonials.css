@@ -1,0 +1,82 @@
+.testimonials {
+    margin-top: 160px;
+    background-color: #222326;
+}
+
+.testimonials__valueSection {
+    padding: 64px 24px;
+    color: #333;
+}
+
+
+.testimonials__valuePoints {
+    display: flex;
+    align-items: baseline;
+}
+
+.testimonials__valueBucket {
+    border: 1px solid transparent;
+    border-radius: 20px;
+    padding: 56px 16px 40px 16px;
+    margin: 0px 12px;
+    background-color: #212325;
+    text-align: left;
+}
+
+.testimonials__profileBucket {
+    display: flex;
+}
+
+.testimonials__name  {
+    color: #fff;
+    font-weight: bold;
+}
+
+.testimonials__title  {
+    color: #9D9D9D;
+}
+
+.testimonials__profileBucket > img {
+    border-radius: 100px;
+    max-width: 50px;
+    max-height: 50px;
+    margin-right: 8px;
+}
+
+.testimonials__image {
+    width: 150px;
+    margin-bottom: 32px;
+}
+
+.testimonials__title>p {
+    margin-top: 16px;
+    color: #fff;
+}
+
+.testimonials__title>h3 {
+    letter-spacing: 1px;
+    color: #fff;
+    font-weight: 300;
+    margin-bottom: 16px;
+}
+
+.testimonials__title>h1 {
+    color: #ad8f2a;
+}
+
+.testimonials__valueSection>h1 {
+    text-align: left;
+}
+
+
+.testimonials__valueBucket > h3 {
+    color: #fff;
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 16px;
+}
+
+.testimonials__valueBucket>p {
+    font-size: 14px;
+    color: #9D9D9D
+}

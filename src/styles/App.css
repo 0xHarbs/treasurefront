@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  background-color: #000000;
+  background-color: #161516;
   min-height: 100vh;
 }
 
@@ -11,16 +11,16 @@ html {
 }
 
 .button {
-  border: solid 1px transparent;
-  border-radius: 6px;
-  padding: 12px 16px;
-  background-color: #ad8f2a;
+  border: solid 0.5px #E9E9E9;
+  border-radius: 0px;
+  padding: 16px 16px;
+  background-color: #3B263A;
   color: #fff;
   font-weight: bold;
 }
 
 .button__large {
-  border: solid 1px #v;
+  border: solid 1px #E9E9E9;
   border-radius: 0px;
   padding: 16px 24px;
   background-color: #000000;

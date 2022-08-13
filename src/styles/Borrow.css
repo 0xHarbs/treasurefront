@@ -1,0 +1,74 @@
+.borrow {
+    align-items: center;
+    margin: 120px 0px 80px 0px;
+    padding: 0px 40px;
+    text-align: center;
+    color: #fff;
+}
+
+.borrow__text {
+    margin-bottom: 32px;
+}
+
+.borrow__text>h1 {
+    font-size: 50px;
+    padding: 0px 160px;
+    margin-bottom: 16px;
+    letter-spacing: 1px;
+    font-weight: bold;;
+}
+.borrow__text>h3 {
+    font-size: 16px;
+    color: #555E6D;
+    margin-bottom: 8px;
+}
+
+.borrow__text>p {
+    padding: 0px 280px;
+    margin-bottom: 32px;
+    font-size: 16px;
+    color: #fff;
+}
+
+.borrow__stats {
+    padding: 32px 40px;
+    border-radius: 20px;
+    background-color: #212325;
+    margin: auto;
+    text-align: left;
+}
+
+.borrow__statsContainer {
+    display: flex;
+}
+
+.borrow__inputRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 16px 0px;
+}
+
+.borrow__inputRow > input {
+    border: 1px solid #606060;
+    border-radius: 10px;
+    padding: 18px 0px 18px 8px;
+    background-color: transparent;
+    color: #959595;
+    width: 46%;
+}
+
+.borrow__stats > h3 {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.borrow__stats > p {
+    font-size: 14px;
+    color: #fff;
+    margin-bottom: 32px;
+}
+
+.borrow__buttonContainer {
+    margin-top: 48px;
+}

@@ -6,11 +6,11 @@ function Cover() {
     return (
         <div className="cover">
             <div className='cover__text'>
-                <h1>LIQUIDITY VAULTS FOR DAOS</h1>
-                <p>Unlock native token liquidity and add more treasure to your treasury.</p>
+                <h3>INTRODUCING TREASURE</h3>
+                <h1>Treasury management protocol for DAOs</h1>
+                <p>Treasure delivers open-source treasury lending and support service to help you earn on your native token.</p>
                 <div className='cover__buttons'>
-                <button className='button coverButton'>Invest</button>
-                <button className='button__counter coverButton'>Documentation</button>
+                <button className='button coverButton'>Launch App</button>
                 </div>
             </div>
         </div>

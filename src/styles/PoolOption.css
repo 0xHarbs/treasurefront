@@ -1,62 +1,47 @@
 .PoolOption {
     padding: 40px 0px;
-    color: #fff
+    color: #fff;
 }
 
 .poolOption__container {
-    padding: 16px 32px;
-    border: 1px solid #fff;
+    display: flex;
+    padding: 40px 32px 32px 32px;
     border-radius: 8px;
-    text-align: left;
+    text-align: center;
+    background-color: #212325;
+}
+
+.poolOption__box {
+    width: 30%;
+    margin-right: 16px;
+}
+.poolOption__titleRow {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+}
+
+.poolOption__icon {
+    margin-right:4px;
+}
+
+.poolOption__sizeRow {
+    display: flex;
+}
+
+.poolOption__sizeColumn {
+    width: 50%;
 }
 
 .poolOption__title {
-    display: flex;
+    margin-bottom: 32px;
+    padding-right: 16px;
 }
 
-.poolOption__selectors {
-    display: flex;
+.poolOption__boldText {
+    margin-bottom: 16px;
 }
 
-.poolOption__selector {
-    margin: 0px 8px;
-    padding: 8px 16px;
-    margin-right: 8px;
-    border: 1px solid #fff;
-    border-radius: 100px;
-}
-
-.poolOption__title > h3 {
-    padding: 8px 0px;
-    margin-right: 8px;
-}
-
-.poolOption__Overview {
-    margin-top: 32px;
-}
-
-.poolOption__OverviewContainer {
-    display: flex;
-}
-
-.poolOption__OverviewDelegate {
-    margin-right: 40px;
-    width: 30%;
-}
-
-.poolOption__OverviewInfo {
-    display: flex;
-    flex-direction: column;
-}
-
-.poolOption__TermsInfo {
-    padding: 24px 0px;
-}
-
-.poolOption__CompanyTerms {
-    display: flex;
-}
-
-.poolOption__CompanyTermBox {
-    padding: 16px 64px 0px 0px;
+.poolOption__headers {
+    margin-bottom: 4px;
 }

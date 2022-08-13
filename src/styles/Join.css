@@ -1,31 +1,31 @@
-.cover {
+.join {
     align-items: center;
-    margin-top: 130px;
+    margin: 130px 0px;
     padding: 0px 40px;
     text-align: center;
     color: #fff;
 }
 
-.cover__text>h1 {
+.join__text>h1 {
     font-size: 50px;
     padding: 0px 160px;
     margin-bottom: 16px;
     letter-spacing: 1px;
     font-weight: bold;;
 }
-.cover__text>h3 {
+.join__text>h3 {
     font-size: 16px;
     color: #555E6D;
     margin-bottom: 8px;
 }
 
-.cover__text>p {
+.join__text>p {
     padding: 0px 280px;
     margin-bottom: 32px;
     font-size: 16px;
     color: #fff;
 }
 
-.coverButton {
+.joinButton {
     margin: 0px 8px
 }

@@ -1,114 +1,83 @@
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import "../styles/App.css";
 import "../styles/PoolOption.css";
+import PaidIcon from "@mui/icons-material/Paid";
+import SecurityIcon from "@mui/icons-material/Security";
+import SavingsIcon from "@mui/icons-material/Savings";
 
 const PoolOption = (params) => {
+  const [home, setHome] = useState(true);
+  const [stats, setStats] = useState(false);
+
+  const changeStats = async () => {
+    setHome(false);
+    setStats(true);
+  };
+
+  const changeOverview = async () => {
+    setHome(true);
+    setStats(false);
+  };
+
   return (
     <div className="PoolOption">
       <div className="poolOption__container">
-        <div className="poolOption__title">
-          <h3>{params.companyName ? params.companyName : "Company Name"}</h3>
-          <div className="poolOption__selectors">
-            <div className="poolOption__selector">
-              <h3>Overview</h3>
+        <div className="poolOption__box">
+          <div className="poolOption__titleRow">
+            <SecurityIcon
+              style={{ color: "#555E6D" }}
+              className="poolOption__icon"
+            />
+            <h2 className="poolOption__title">Protection</h2>
+          </div>
+          <div>
+            <p className="poolOption__headers">Locked Collateral</p>
+            <h3 className="poolOption__boldText">$3,000,000</h3>
+          </div>
+          <div>
+            <p className="poolOption__headers">Collateralisation Ratio</p>
+            <h3 className="poolOption__boldText">3x</h3>
+          </div>
+        </div>
+        <div className="poolOption__box">
+          <div className="poolOption__titleRow">
+            <PaidIcon
+              style={{ color: "#FDC943" }}
+              className="poolOption__icon"
+            />
+            <h2 className="poolOption__title">Pool Size</h2>
+          </div>
+          <div className="poolOption__sizeRow">
+            <div className="poolOption__sizeColumn">
+              <p className="poolOption__headers">Max Capacity</p>
+              <h3 className="poolOption__boldText">$1,000,000</h3>
+              <p className="poolOption__headers">APR</p>
+              <h3 className="poolOption__boldText">10%</h3>
             </div>
-            <div className="poolOption__selector">
-              <h3>Pool Stats</h3>
+            <div poolOption__sizeColumn>
+              <p className="poolOption__headers">Oustanding</p>
+              <h3 className="poolOption__boldText">$200,000</h3>
+              <p className="poolOption__headers">Batches</p>
+              <h3 className="poolOption__boldText">20</h3>
             </div>
           </div>
         </div>
-        <div className="poolOption__Overview">
-          <div className="poolOption__OverviewContainer">
-            <div className="poolOption__OverviewDelegate">
-              <p>Pool Delegate</p>
-              <p>Josh Green</p>
-              <p>Website</p>
-            </div>
-            <div className="poolOption__OverviewInfo">
-              <div className="poolOption__CompanyInfo">
-                <h3>About Company Name</h3>
-                <p>
-                  Orthogonal Trading is a multi-strategy cryptocurrency trading
-                  firm focused solely on the digital asset markets. Orthogonal
-                  Trading were the first Pool Delegate to launch a lending
-                  business on Maple and currently operate two pools. The team
-                  bring experience in portfolio and risk management, auditing,
-                  quantitative trading, and blockchain system development from
-                  Goldman Sachs, Morgan Stanley, B2C2 and more.
-                </p>
-              </div>
-              <div className="poolOption__TermsInfo">
-                <h3>Pool Terms</h3>
-                <div className="poolOption__CompanyTerms">
-                  <div className="poolOption__CompanyTermPair">
-                    <div className="poolOption__CompanyTermBox">
-                      <p>Funding Limit</p>
-                      <h3>$2,000,000</h3>
-                    </div>
-                    <div className="poolOption__CompanyTermBox">
-                      <p>Locked Collateral</p>
-                      <h3>$6,900,000</h3>
-                    </div>
-                  </div>
-                  <div className="poolOption__CompanyTermPair">
-                    <div className="poolOption__CompanyTermBox">
-                      <p>Funding Received</p>
-                      <h3>85%</h3>
-                    </div>
-                    <div className="poolOption__CompanyTermBox">
-                      <p>Repayments Made</p>
-                      <h3>12</h3>
-                    </div>
-                  </div>
-                  <div className="poolOption__CompanyTermPair">
-                    <div className="poolOption__CompanyTermBox">
-                      <p>Annual Yield</p>
-                      <h3>10%</h3>
-                    </div>
-                    <div className="poolOption__CompanyTermBox">
-                      <p>Lockup Period</p>
-                      <h3>365 days</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <hr></hr>
-              <div className="poolOption__TermsInfo">
-                <h3>Project Overview</h3>
-                <div className="poolOption__CompanyTerms">
-                  <div className="poolOption__CompanyTermPair">
-                    <div className="poolOption__CompanyTermBox">
-                      <p>Undiluted Mkt Cap</p>
-                      <h3>$11,600,000</h3>
-                    </div>
-                    <div className="poolOption__CompanyTermBox">
-                      <p>Stat</p>
-                      <h3>10:1</h3>
-                    </div>
-                  </div>
-                  <div className="poolOption__CompanyTermPair">
-                    <div className="poolOption__CompanyTermBox">
-                      <p>Diluted Mkt Cap</p>
-                      <h3>$80,000,000</h3>
-                    </div>
-                    <div className="poolOption__CompanyTermBox">
-                      <p>DEX Liquidity</p>
-                      <h3>$1,800,000</h3>
-                    </div>
-                  </div>
-                  <div className="poolOption__CompanyTermPair">
-                    <div className="poolOption__CompanyTermBox">
-                      <p>Tokens Issued</p>
-                      <h3>60%</h3>
-                    </div>
-                    <div className="poolOption__CompanyTermBox">
-                      <p>Liquidity Risk</p>
-                      <h3>5/10</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <div className="poolOption__box">
+        <div className="poolOption__titleRow">
+            <SavingsIcon
+              style={{ color: "#53AA61" }}
+              className="poolOption__icon"
+            />
+            <h2 className="poolOption__title">Earnings</h2>
+          </div>
+          <div>
+            <p className="poolOption__headers">APY</p>
+            <h3 className="poolOption__boldText">10%</h3>
+          </div>
+          <div>
+            <p className="poolOption__headers">Interest Earned</p>
+            <h3 className="poolOption__boldText">$15,000</h3>
           </div>
         </div>
       </div>

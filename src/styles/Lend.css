@@ -1,4 +1,13 @@
+.Lend {
+    margin-bottom: 120px;
+}
+
 .lendCover {
     color: #fff;
     padding: 64px 40px 64px 40px;
+}
+
+.lend__openProjects {
+    display: flex;
+    flex-wrap: wrap;
 }

@@ -24,7 +24,7 @@ const LendSummary = (params) => {
               </div>
               <div className="lendsummary__textBox">
                 <p>Total Cash</p>
-                <h3>{params.fundingRate ? params.fundingRate : "0"}</h3>
+                <h3>{params.FundingRate ? params.FundingRate : "0"}</h3>
               </div>
             </div>
             <div className="lendsummary__textContainer">
@@ -39,7 +39,7 @@ const LendSummary = (params) => {
             </div>
           </div>
           <div className="lendsummary__link">
-            <Link to="/pool">
+            <Link to={`/pool/${params.Contract}`}>
               <h3
                 style={{
                   color: "#FDC943",

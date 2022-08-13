@@ -1,9 +1,30 @@
 import "../styles/App.css";
 import "../styles/PoolActions.css";
 import { Link } from "react-router-dom";
-import React from "react";
+import { React, useState } from "react";
 
 const PoolActions = (params) => {
+  const [valueInput, setValueInput] = useState("0");
+  const [withdrawalInput, setWithdrawalInput] = useState("0")
+
+  const handleChange = (event) => {
+    setValueInput(event.target.value);
+    console.log(event.target.value);
+  };
+
+  const setMax = () => {
+    setValueInput(params.borrowBalance);
+  };
+
+  const handleChangeWithdrawal = (event) => {
+    setWithdrawalInput(event.target.value);
+    console.log(event.target.value);
+  };
+
+  const setMaxWithdrawal = () => {
+    setWithdrawalInput(params.borrowBalance);
+  };
+
   return (
     <div className="poolActions">
       <div className="poolActions__container">
@@ -12,7 +33,12 @@ const PoolActions = (params) => {
           <p>Deposit funds into the lending pool to earn yield.</p>
         </div>
         <div className="poolActions__contentContainer">
-          <h3>100.00</h3>
+          <input
+            type="number"
+            value={valueInput}
+            defaultValue="0.00"
+            onChange={handleChange}
+          ></input>
           <div className="poolActions__inputColumn">
             <div className="poolActions__inputs">
               <div className="poolActions__currency">
@@ -23,8 +49,8 @@ const PoolActions = (params) => {
           </div>
         </div>
         <div className="poolActions__balanceInfo">
-          <p>Balance: 2000</p>
-          <div className="poolActions__maxIcon">
+          <p>Balance: {params.borrowBalance ? params.borrowBalance : 0}</p>
+          <div className="poolActions__maxIcon" onClick={setMax}>
             <p>Max</p>
           </div>
         </div>
@@ -32,15 +58,24 @@ const PoolActions = (params) => {
           <div className="poolActions__infoColumn">
             <div className="poolActions__infoText">
               <p>APR: </p>
-              <h3>20%</h3>
+              <h3>{params.APR ? `${params.APR}%` : "0%"}</h3>
             </div>
             <div className="poolActions__infoText">
               <p>Estimated Return: </p>
-              <h3>$110.00</h3>
+              <h3>
+                {valueInput ? valueInput * (1 + Number(params.APR) / 100) : 0}
+              </h3>
             </div>
           </div>
           <div>
-            <button className="button">Lend USDC</button>
+            <button
+              className="button"
+              onClick={() => {
+                params.lendFunds(valueInput);
+              }}
+            >
+              Lend USDC
+            </button>
           </div>
         </div>
       </div>
@@ -50,7 +85,53 @@ const PoolActions = (params) => {
           <p>View all of your rewards from investing in Aave.</p>
         </div>
         <div className="poolActions__contentContainer">
-          <h3>100.00</h3>
+          <input
+            type="number"
+            value={withdrawalInput}
+            defaultValue="0.00"
+            onChange={handleChangeWithdrawal}
+          ></input>
+          <div className="poolActions__inputColumn">
+            <div className="poolActions__inputs">
+              <div className="poolActions__currency">
+                <img src="https://cryptologos.cc/logos/versions/dogecoin-doge-logo-alternative.svg?v=023"></img>
+                <p>DOGE</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="poolActions__balanceInfo">
+          <div>
+            <p>Pending Balance: 0</p>
+          </div>
+          <p>Available: {params.borrowBalance ? params.borrowBalance : 0}</p>
+          <div className="poolActions__maxIcon" onClick={setMaxWithdrawal}>
+            <p>Max</p>
+          </div>
+        </div>
+        <div className="poolActions__infoRow">
+          <div className="poolActions__infoColumn">
+            <div className="poolActions__infoText">
+              <p>Locked: </p>
+              <h3>{params.lockedBalance ? `${params.lockedBalance}%` : "$0"}</h3>
+            </div>
+            <div className="poolActions__infoText">
+              <p>Unlocked: </p>
+              <h3>
+                {params.unlockedBalance ? params.unlockedBalance : 0} {params.interestGain ? params.interestGain : "(0%)"}
+              </h3>
+            </div>
+          </div>
+          <div>
+            <button
+              className="button"
+              onClick={() => {
+                params.withdrawFunds(withdrawalInput);
+              }}
+            >
+              Withdraw DOGE
+            </button>
+          </div>
         </div>
       </div>
     </div>

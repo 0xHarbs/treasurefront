@@ -2,21 +2,112 @@ import "./styles/App.css";
 import "./styles/Lend.css";
 import LendCover from "./components/LendCover";
 import LendSummary from "./components/LendSummary";
+import Header from "./components/Header";
+import { useEffect, useState } from "react";
+import { ethers } from "ethers";
 
-function Lend() {
+const Lend = (params) => {
+  const [wallet, setWallet] = useState(null);
+  const [provider, setProvider] = useState(null);
+  const [signer, setSigner] = useState(null);
+  const [contractInfo, setContractInfo] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+  const contracts = ["0x227E5A7926Ba6d445a4d3bFF62EDF476A375945d"];
+  const contractsAbi = [
+    "function requestedBorrowAmount() external view returns (uint256)",
+    "function interestRate() external view returns (uint48)",
+    "function totalBorrowedDeposits() external view returns (uint256)",
+    "function maxBorrowAmount() external view returns (uint256)",
+  ];
+
+  // Core functionality
+  const connectWallet = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const address = await signer.getAddress();
+    const network = await provider.getNetwork();
+    if (network.chainId !== 5) {
+      alert("Please switch to the Goerli test network");
+    } else {
+      setWallet(address);
+      setProvider(provider);
+      setSigner(signer);
+    }
+    console.log("Updated Wallet")
+  };
+
+  // Getting info for all contracts
+  const getContractData = async () => {
+    if (!provider) {
+      return;
+    }
+    let contractInfoList = [];
+    for (let i = 0; i < contracts.length; i++) {
+      const contract = new ethers.Contract(
+        contracts[i],
+        contractsAbi,
+        provider
+      );
+      const requestedLoan = await contract.requestedBorrowAmount();
+      const APR = await contract.interestRate();
+      const investedFunds = await contract.totalBorrowedDeposits();
+      const maxBorrowAmount = await contract.maxBorrowAmount();
+      const contractInfo = {
+        RequestedLoan: numberWithCommas(requestedLoan.toString()),
+        APR: (APR/100).toString(),
+        FundsRaised: investedFunds.toString(),
+        MaxBorrowAmount: numberWithCommas(maxBorrowAmount.toString()),
+        FundingRate: numberWithCommas((investedFunds/requestedLoan).toString()),
+        Contract: contracts[i]
+      };
+      contractInfoList.push(contractInfo);
+      console.log(contractInfo)
+      console.log(contractInfo.RequestedLoan)
+    }
+    setContractInfo(contractInfoList)
+  };
+
+  // Helper for numbers
+  const numberWithCommas = (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+  // Loading data on page load
+  useEffect(() => {
+    const loadData = async () => {
+      setLoading(true)
+      await getContractData();
+      setLoading(false)
+    };
+    loadData();
+  }, []);
+
+  // Loading data on wallet connect
+  useEffect(() => {
+    console.log("Connecting")
+    const loadData = async () => {
+      setLoading(true)
+      await getContractData();
+      setLoading(false)
+    };
+    loadData();
+  }, [wallet]);
+
   return (
     <div className="Lend">
+      <Header connectWallet={connectWallet} wallet={wallet} />
       <LendCover />
+      {!loading && 
       <div className="lend__openProjects">
         <LendSummary
           name={"Aave"}
-          logo={
-            "https://cryptologos.cc/logos/aave-aave-logo.png"
-          }
-          loanRequest={"$4,000,000"}
-          fundingRate={"80%"}
-          APR={"10%"}
+          logo={"https://cryptologos.cc/logos/aave-aave-logo.png"}
+          loanRequest={contractInfo ? `$${contractInfo[0].RequestedLoan}` : "10"}
+          FundingRate={contractInfo ? `${contractInfo[0].FundingRate}%` : "80%"}
+          APR={contractInfo ? `${contractInfo[0].APR}%` : "10%"}
           Backers={1200}
+          Contract={contractInfo ? `${contractInfo[0].Contract}` : "0" }
         />
         <LendSummary
           name={"Uniswap"}
@@ -38,11 +129,9 @@ function Lend() {
           APR={"10%"}
           Backers={780}
         />
-                <LendSummary
+        <LendSummary
           name={"Yearn"}
-          logo={
-            "https://cryptologos.cc/logos/yearn-finance-yfi-logo.png"
-          }
+          logo={"https://cryptologos.cc/logos/yearn-finance-yfi-logo.png"}
           loanRequest={"$2,000,000"}
           fundingRate={"40%"}
           APR={"14%"}
@@ -50,9 +139,7 @@ function Lend() {
         />
         <LendSummary
           name={"DyDx"}
-          logo={
-            "https://getcrypto.info/images/logos/dydx.png"
-          }
+          logo={"https://getcrypto.info/images/logos/dydx.png"}
           loanRequest={"$4,000,000"}
           fundingRate={"89%"}
           APR={"15%"}
@@ -69,8 +156,9 @@ function Lend() {
           Backers={450}
         />
       </div>
+      }
     </div>
   );
-}
+};
 
 export default Lend;

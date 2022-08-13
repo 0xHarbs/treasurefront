@@ -90,6 +90,10 @@
     margin-right: 4px;
 }
 
+.poolActions__balanceInfo:hover {
+    cursor: pointer;
+}
+
 .poolActions__currency > img {
     max-width: 25px;
     max-height: 25px;
@@ -101,7 +105,9 @@
     color: #333;
 }
 
-.poolActions__contentContainer > h3 {
+.poolActions__contentContainer > input {
+    background-color: transparent;
+    border: none;
     text-align: left;
     font-size: 20px;
     color: #909090;

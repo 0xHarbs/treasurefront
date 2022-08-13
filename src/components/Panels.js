@@ -1,6 +1,7 @@
 import "../styles/App.css";
 import "../styles/Panels.css";
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Panels() {
   return (
@@ -18,7 +19,9 @@ function Panels() {
           <li>Total transparency for your community</li>
         </div>
         <div className="panels__buttons">
+          <Link to="choose">
           <button className="button panelsButton">Launch App</button>
+          </Link>
           <p style={{ color: "#FDC943" }}>Read the docs</p>
         </div>
       </div>
@@ -30,7 +33,9 @@ function Panels() {
           through unlocking yield can propel growth and give teams an edge.
         </p>
         <div className="panels__buttons">
+        <Link to="choose">
           <button className="button panelsButton">Launch App</button>
+          </Link>
           <p style={{ color: "#FDC943" }}>Read the docs</p>
         </div>
       </div>

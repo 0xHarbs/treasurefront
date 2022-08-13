@@ -4,10 +4,12 @@ import Info from "./components/Info";
 import Panels from './components/Panels';
 import Testimonials from './components/Testimonials';
 import Join from './components/Join';
+import Header from "./components/Header";
 
 function Home() {
   return (
     <div className="Home">
+      <Header />
       <Cover/>
       <Info />
       <Panels />

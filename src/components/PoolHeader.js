@@ -1,7 +1,7 @@
 import "../styles/App.css";
 import "../styles/LendCover.css";
 
-function LendCover() {
+const LendCover = (params) => {
   return (
     <div className="LendCover">
       <div className="lendCover__text">
@@ -15,11 +15,11 @@ function LendCover() {
             <p>Requested</p>
           </div>
           <div className="lendCover__stat">
-            <h3>90%</h3>
+            <h3>{params.FundingRate ? `${params.FundingRate}%` : 0}</h3>
             <p>Funded</p>
           </div>
           <div className="lendCover__stat">
-            <h3>10%</h3>
+            <h3>{params.APR ? `${params.APR}%` : 0}</h3>
             <p>APR</p>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import "../styles/App.css";
 import "../styles/Choice.css";
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Choice() {
   return (
@@ -17,9 +18,11 @@ function Choice() {
               Borrow requested tokens to projects and you will received a yield
               over a locked period in their native token.
             </p>
+            <Link to="/lend">
             <p style={{ color: "#FDC943", margin: "32px 0px 0px 0px" }}>
               Let's go
             </p>
+            </Link>
           </div>
           <div className="info__valueBucket">
             <h3>Borrow funds from your supporters</h3>
@@ -27,9 +30,11 @@ function Choice() {
               Launch a campaign to borrow funds from contributors in stablecoins
               or ETH and you will pay an APR in your native token.
             </p>
+            <Link to="/borrow">
             <p style={{ color: "#FDC943", margin: "32px 0px 0px 0px" }}>
               Let's go
             </p>
+            </Link>
           </div>
           <div className="info__valueBucket">
             <h3>Partner with our team to launch strategies</h3>

@@ -33,11 +33,11 @@ const PoolOption = (params) => {
           </div>
           <div>
             <p className="poolOption__headers">Locked Collateral</p>
-            <h3 className="poolOption__boldText">$3,000,000</h3>
+            <h3 className="poolOption__boldText">{params.LockedCollateral ? `$${params.LockedCollateral}` : 0}</h3>
           </div>
           <div>
             <p className="poolOption__headers">Collateralisation Ratio</p>
-            <h3 className="poolOption__boldText">3x</h3>
+            <h3 className="poolOption__boldText">{params.CollateralisationRatio ? `${params.CollateralisationRatio}x` : 0}</h3>
           </div>
         </div>
         <div className="poolOption__box">
@@ -51,15 +51,15 @@ const PoolOption = (params) => {
           <div className="poolOption__sizeRow">
             <div className="poolOption__sizeColumn">
               <p className="poolOption__headers">Max Capacity</p>
-              <h3 className="poolOption__boldText">$1,000,000</h3>
-              <p className="poolOption__headers">APR</p>
-              <h3 className="poolOption__boldText">10%</h3>
+              <h3 className="poolOption__boldText">{params.MaxBorrowAmount ? `$${params.MaxBorrowAmount}` : 0}</h3>
+              <p className="poolOption__headers">Backers</p>
+              <h3 className="poolOption__boldText">200</h3>
             </div>
             <div poolOption__sizeColumn>
-              <p className="poolOption__headers">Oustanding</p>
-              <h3 className="poolOption__boldText">$200,000</h3>
+              <p className="poolOption__headers">Capacity Left</p>
+              <h3 className="poolOption__boldText">{params.Outstanding ? `$${params.Outstanding}` : "$0"}</h3>
               <p className="poolOption__headers">Batches</p>
-              <h3 className="poolOption__boldText">20</h3>
+              <h3 className="poolOption__boldText">{params.Batches ? params.Batches : 10}</h3>
             </div>
           </div>
         </div>
@@ -73,7 +73,7 @@ const PoolOption = (params) => {
           </div>
           <div>
             <p className="poolOption__headers">APY</p>
-            <h3 className="poolOption__boldText">10%</h3>
+            <h3 className="poolOption__boldText">{params.APR ? `${params.APR}%` : "0%" }</h3>
           </div>
           <div>
             <p className="poolOption__headers">Interest Earned</p>

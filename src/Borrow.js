@@ -1,9 +1,11 @@
 import "./styles/App.css";
 import "./styles/Borrow.css";
+import Header from "./components/Header";
 
 function Borrow() {
   return (
     <div className="borrow">
+      <Header />
       <div className="borrow__text">
         <h3>CHOOSE YOUR SIDE</h3>
         <h1>Borrow Funds</h1>

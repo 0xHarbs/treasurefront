@@ -1,0 +1,18 @@
+.Admin {
+    margin-bottom: 120px;
+}
+
+.adminCover {
+    color: #fff;
+    padding: 64px 40px 64px 40px;
+}
+
+.admin__signText {
+    color: #fff;
+    margin-bottom: 16px;
+}
+
+.admin__openProjects {
+    display: flex;
+    flex-wrap: wrap;
+}

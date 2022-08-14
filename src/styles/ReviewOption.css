@@ -1,0 +1,48 @@
+.ReviewOption {
+    padding: 0px 0px;
+    margin: 0px 40px 80px 40px;
+    color: #fff;
+}
+
+.reviewOption__container {
+    display: flex;
+    padding: 40px 32px 32px 32px;
+    border-radius: 8px;
+    text-align: center;
+    background-color: #212325;
+}
+
+.reviewOption__box {
+    width: 30%;
+    margin-right: 16px;
+}
+.reviewOption__titleRow {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+}
+
+.reviewOption__icon {
+    margin-right:4px;
+}
+
+.reviewOption__sizeRow {
+    display: flex;
+}
+
+.reviewOption__sizeColumn {
+    width: 50%;
+}
+
+.reviewOption__title {
+    margin-bottom: 32px;
+    padding-right: 16px;
+}
+
+.reviewOption__boldText {
+    margin-bottom: 16px;
+}
+
+.reviewOption__headers {
+    margin-bottom: 4px;
+}

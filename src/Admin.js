@@ -1,18 +1,18 @@
 import "./styles/App.css";
-import "./styles/Lend.css";
-import LendCover from "./components/LendCover";
-import LendSummary from "./components/LendSummary";
+import "./styles/Admin.css";
+import AdminCover from "./components/AdminCover";
+import AdminSummary from "./components/AdminSummary";
 import Header from "./components/Header";
 import { useEffect, useState } from "react";
 import { ethers } from "ethers";
 
-const Lend = (params) => {
+const Admin = (params) => {
   const [wallet, setWallet] = useState(null);
   const [provider, setProvider] = useState(null);
   const [signer, setSigner] = useState(null);
   const [contractInfo, setContractInfo] = useState(null)
   const [loading, setLoading] = useState(true)
-  const [walletConnected, setWalletConnected] = useState(false)
+  const [adminConfirmed, setAdminConfirmed] = useState(false)
 
   const contracts = ["0x227E5A7926Ba6d445a4d3bFF62EDF476A375945d"];
   const contractsAbi = [
@@ -21,6 +21,7 @@ const Lend = (params) => {
     "function totalBorrowedDeposits() external view returns (uint256)",
     "function maxBorrowAmount() external view returns (uint256)",
   ];
+  const adminAddress = "0xC59b3779A592B620028c77Ab1742c9960e038e4C"
 
   // Core functionality
   const connectWallet = async () => {
@@ -34,7 +35,6 @@ const Lend = (params) => {
       setWallet(address);
       setProvider(provider);
       setSigner(signer);
-      setWalletConnected(true)
     }
     console.log("Updated Wallet")
   };
@@ -70,92 +70,83 @@ const Lend = (params) => {
     setContractInfo(contractInfoList)
   };
 
+  const checkAdmin = async () => {
+    if(!signer) alert("Connect wallet first!")
+    const message = "Signing to verify admins status"
+    const signature = await signer.signMessage(message)
+    console.log(signature)
+    const address = ethers.utils.verifyMessage(message, signature)
+    if(address.toLowerCase() === adminAddress.toLowerCase()) {
+      setAdminConfirmed(true)
+      setLoading(false)
+    } else {
+      alert("Not an admin! Area off limits")
+    }
+  }
+
   // Helper for numbers
   const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-
-  // Loading data on page load
-  useEffect(() => {
-    const loadData = async () => {
-      await getContractData();
-    };
-    if(!wallet) {
-      alert("Connect Wallet to continue")
-    }
-    loadData();
-  }, []);
 
   // Loading data on wallet connect
   useEffect(() => {
     console.log("Connecting")
     const loadData = async () => {
       await getContractData();
-      setLoading(false)
     };
     loadData();
-  }, [walletConnected]);
+  }, [adminConfirmed]);
+
+  useEffect(() => {
+    console.log(loading)
+    console.log(adminConfirmed)
+  })
 
   return (
-    <div className="Lend">
+    <div className="Admin">
       <Header connectWallet={connectWallet} wallet={wallet} />
-      <LendCover />
-      {!loading && walletConnected && 
-      <div className="lend__openProjects">
-        <LendSummary
-          name={"Aave"}
-          logo={"https://cryptologos.cc/logos/aave-aave-logo.png"}
-          loanRequest={contractInfo ? `$${contractInfo[0].RequestedLoan}` : "10"}
-          FundingRate={contractInfo ? `${contractInfo[0].FundingRate}%` : "80%"}
+      {loading
+      ? <>
+      <h3 className="admin__signText">Sign a transaction to verify admin status.</h3>
+      <button className="button" onClick={checkAdmin}>Sign-in via Ethereum</button> 
+
+      </>
+      : <AdminCover />
+      }
+      {!loading && 
+      <div className="admin__openProjects">
+        <AdminSummary
+          name={"Siacoin"}
+          logo={"https://cryptologos.cc/logos/siacoin-sc-logo.png"}
+          loanRequest={"$4,000,000"}
+          collateral={"$12,000,000"}
           APR={contractInfo ? `${contractInfo[0].APR}%` : "10%"}
-          Backers={1200}
-          Contract={contractInfo ? `${contractInfo[0].Contract}` : "0" }
+          price={"$0.01"}
+          contract={contractInfo ? `${contractInfo[0].Contract}` : "0" }
+          description={"Decentralised file hosting"}
         />
-        <LendSummary
-          name={"Uniswap"}
+        <AdminSummary
+          name={"Synthetix"}
           logo={
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Uniswap_Logo.svg/2051px-Uniswap_Logo.svg.png"
+            "https://www.coinopsy.com/media/img/quality_logo/Synthetix_Network.png"
           }
           loanRequest={"$7,000,000"}
-          fundingRate={"89%"}
+          collateral={"$21,000,000"}
           APR={"10%"}
-          Backers={2350}
+          price={"$0.5"}
+          description={"Decentralised exchange"}
         />
-        <LendSummary
-          name={"Lido"}
+        <AdminSummary
+          name={"Binance"}
           logo={
-            "https://thegivingblock.com/wp-content/uploads/2022/04/Lido-LDO-logo.png"
+            "https://upload.wikimedia.org/wikipedia/commons/5/57/Binance_Logo.png"
           }
           loanRequest={"$1,400,000"}
-          fundingRate={"68%"}
+          collateral={"$4,100,000"}
           APR={"10%"}
-          Backers={780}
-        />
-        <LendSummary
-          name={"Yearn"}
-          logo={"https://cryptologos.cc/logos/yearn-finance-yfi-logo.png"}
-          loanRequest={"$2,000,000"}
-          fundingRate={"40%"}
-          APR={"14%"}
-          Backers={650}
-        />
-        <LendSummary
-          name={"DyDx"}
-          logo={"https://getcrypto.info/images/logos/dydx.png"}
-          loanRequest={"$4,000,000"}
-          fundingRate={"89%"}
-          APR={"15%"}
-          Backers={1743}
-        />
-        <LendSummary
-          name={"Maple Finance"}
-          logo={
-            "https://thegivingblock.com/wp-content/uploads/2022/04/Maple-MPL-logo-.png"
-          }
-          loanRequest={"$800,000"}
-          fundingRate={"68%"}
-          APR={"7%"}
-          Backers={450}
+          price={"$1.3"}
+          description={"Centralised exchange"}
         />
       </div>
       }
@@ -163,4 +154,4 @@ const Lend = (params) => {
   );
 };
 
-export default Lend;
+export default Admin;

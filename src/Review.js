@@ -1,14 +1,14 @@
 import "./styles/App.css";
 import "./styles/Pool.css";
-import PoolHeader from "./components/PoolHeader";
-import PoolOption from "./components/PoolOption";
-import PoolActions from "./components/PoolActions";
+import ReviewHeader from "./components/ReviewHeader";
+import ReviewOption from "./components/ReviewOption";
+import ReviewActions from "./components/ReviewActions";
 import Header from "./components/Header";
 import { useEffect, useState } from "react";
 import { BigNumber, ethers } from "ethers";
 import { useParams } from "react-router-dom";
 
-const Pool = () => {
+const Review = () => {
   const { id } = useParams();
   const [wallet, setWallet] = useState(null);
   const [provider, setProvider] = useState(null);
@@ -139,14 +139,13 @@ const Pool = () => {
         id.toString(),
         ethers.constants.MaxUint256.toString()
       );
-      alert("Sent approval transaction. Pending...");
+      alert("Sent transaction. Pending...");
       await txAllow.wait();
     }
     const contract = new ethers.Contract(id.toString(), contractsAbi, signer);
     const tx = await contract.depositLiquidity(ethers.utils.parseEther(amount));
-    alert("Sent lend funds transaction. Pending...");
+    alert("Transaction sent. Pending...");
     await tx.wait();
-    alert("Completed!")
   };
 
   const getWithdrawalStatus = async () => {
@@ -217,14 +216,8 @@ const Pool = () => {
     if (!provider) return;
     const contract = new ethers.Contract(id.toString(), contractsAbi, signer);
     const tx = await contract.withdrawLiquidity(contractInfo.Batches);
-    alert("Withdrawal transaction sent!")
     await tx.wait();
-    alert("Withdrawal completed")
   };
-
-  useEffect(() => {
-    connectWallet()
-  }, [])
 
   // Loading data on page load
   useEffect(() => {
@@ -246,16 +239,16 @@ const Pool = () => {
   }, [batchRepaid])
 
   return (
-    <div className="Pool">
-      <Header connectWallet={connectWallet} wallet={wallet}/>
+    <div className="Review">
+      <Header connectWallet={connectWallet} />
       {!loading && (
         <>
-          <PoolHeader
+          <ReviewHeader
             RequestedLoan={contractInfo ? contractInfo.RequestedLoan : 0}
             FundingRate={contractInfo ? contractInfo.FundingRate : 0}
             APR={contractInfo ? contractInfo.APR : "0%"}
           />
-          <PoolOption
+          <ReviewOption
             LockedCollateral={contractInfo ? contractInfo.LockedCollateral : 0}
             CollateralisationRatio={
               contractInfo ? contractInfo.CollateralisationRatio : 0
@@ -265,7 +258,7 @@ const Pool = () => {
             Outstanding={contractInfo ? contractInfo.Outstanding : 0}
             Batches={contractInfo ? contractInfo.Batches : 0}
           />
-          <PoolActions
+          <ReviewActions
             APR={contractInfo ? contractInfo.APR : "0%"}
             borrowBalance={borrowBalance ? borrowBalance : 0}
             nativeBalance={nativeBalance ? nativeBalance : 0}
@@ -280,4 +273,4 @@ const Pool = () => {
   );
 };
 
-export default Pool;
+export default Review;

@@ -101,10 +101,7 @@ const PoolActions = (params) => {
           </div>
         </div>
         <div className="poolActions__balanceInfo">
-          <div>
-            <p>Pending Balance: 0</p>
-          </div>
-          <p>Available: {params.borrowBalance ? params.borrowBalance : 0}</p>
+          <p>Available: {params.unlockedFunds ? params.unlockedFunds : 0}</p>
           <div className="poolActions__maxIcon" onClick={setMaxWithdrawal}>
             <p>Max</p>
           </div>
@@ -118,7 +115,7 @@ const PoolActions = (params) => {
             <div className="poolActions__infoText">
               <p>Unlocked: </p>
               <h3>
-                {params.unlockedBalance ? params.unlockedBalance : 0} {params.interestGain ? params.interestGain : "(0%)"}
+                {params.unlockedFunds ? `$${params.unlockedFunds}` : 0} {params.interestGained ? `(${params.interestGained}%)` : "(0)"}
               </h3>
             </div>
           </div>

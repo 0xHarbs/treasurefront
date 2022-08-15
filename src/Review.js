@@ -1,4 +1,5 @@
 import "./styles/App.css";
+import "./styles/Review.css"
 import "./styles/Pool.css";
 import ReviewHeader from "./components/ReviewHeader";
 import ReviewOption from "./components/ReviewOption";
@@ -26,7 +27,9 @@ const Review = () => {
   const [batchDeposits, setBatchDeposits] = useState([])
   const [unlockedFunds, setUnlockedFunds] = useState("0")
   const [interestGained, setInterestGained] = useState("0")
+  const [adminConfirmed, setAdminConfirmed] = useState(false)
 
+  const adminAddress = "0xC59b3779A592B620028c77Ab1742c9960e038e4C"
   const contracts = ["0x227E5A7926Ba6d445a4d3bFF62EDF476A375945d"];
   const contractsAbi = [
     "function requestedBorrowAmount() external view returns (uint256)",
@@ -41,7 +44,8 @@ const Review = () => {
     "function depositLiquidity(uint256) external",
     "function batchToDeposits(uint54) external view returns (uint256)",
     "function addressDepositsToBatch(address, uint256) external view returns (uint256)",
-    "function batchNumberRepaid(uint64) external view returns (bool)"
+    "function batchNumberRepaid(uint64) external view returns (bool)",
+    "function initialiseVault() external"
   ];
 
   const erc20Abi = [
@@ -121,126 +125,61 @@ const Review = () => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
-  // Lending funds to the pool
-  const lendFunds = async (amount) => {
-    if (!nativeContract || !borrowContract) return;
-    const allowance = await borrowContract.allowance(wallet, id.toString());
-    let allowanceBig = BigNumber.from(allowance);
-    let checkBalance = BigNumber.from("1000000000000000000");
-    console.log("Got here")
-    if (!allowanceBig.gt(checkBalance)) {
-      console.log("Here");
-      const writeBorrow = new ethers.Contract(
-        borrowAddress.toString(),
-        erc20Abi,
-        signer
-      );
-      const txAllow = await writeBorrow.approve(
-        id.toString(),
-        ethers.constants.MaxUint256.toString()
-      );
-      alert("Sent transaction. Pending...");
-      await txAllow.wait();
-    }
-    const contract = new ethers.Contract(id.toString(), contractsAbi, signer);
-    const tx = await contract.depositLiquidity(ethers.utils.parseEther(amount));
-    alert("Transaction sent. Pending...");
-    await tx.wait();
-  };
-
-  const getWithdrawalStatus = async () => {
-    if (!provider) return;
-    const contract = new ethers.Contract(id.toString(), contractsAbi, signer);
-    const pendingBalance = await contract.addressDepositsToBatch(
-      wallet,
-      contractInfo.Batches
-    );
-    setPendingBalance(pendingBalance.toString());
-    console.log("Got pending balance");
-  };
-
-  const getBatchDeposits = async () => {
-    if (!provider) return;
-    const contract = new ethers.Contract(id.toString(), contractsAbi, signer);
-    let batchDeposits = []
-    let batchRepaid = []
-    if (contractInfo.Batches.toString() !== "0") {
-      console.log("Going to first");
-      for (let i = 0; i < contractInfo.Batches; i++) {
-        const depositAmount = await contract.addressDepositsToBatch(wallet, i);
-        const batchNumberRepaid = await contract.batchNumberRepaid(i)
-        console.log("Deposit amount: " + depositAmount);
-        batchDeposits.push(depositAmount)
-        batchRepaid.push(batchNumberRepaid)
-        if (depositAmount !== 0) {
-          console.log("Not zero");
-        }
-      }
+  const checkAdmin = async () => {
+    if(!signer) alert("Connect wallet first!")
+    const message = "Signing to verify admins status"
+    const signature = await signer.signMessage(message)
+    console.log(signature)
+    const address = ethers.utils.verifyMessage(message, signature)
+    if(address.toLowerCase() === adminAddress.toLowerCase()) {
+      setAdminConfirmed(true)
+      setLoading(false)
     } else {
-      console.log("Going to second");
-      const depositAmount = await contract.addressDepositsToBatch(wallet, 0);
-      const batchNumberRepaid = await contract.batchNumberRepaid(0)
-      batchDeposits.push(depositAmount)
-      batchRepaid.push(batchNumberRepaid)
-      console.log("Deposit amount: " + depositAmount);
-      console.log(batchNumberRepaid)
+      alert("Not an admin! Area off limits")
     }
-    setBatchDeposits(batchDeposits)
-    setBatchRepaid(batchRepaid)
-  };
-
-  // May overflow!!!!!!!
-  const getAvailableBalance = async () => {
-    let sum = BigNumber.from(0);
-    for(let i = 0; i < batchDeposits; i ++) {
-      if(batchRepaid[i] === true) {
-        sum.add(batchRepaid[i])
-      }  
-    }
-    console.log(contractInfo.APR)
-    if(sum.toString() !== "0") {
-      const interestRate = 1 + (Number(contractInfo.APR) / 100);
-      console.log(interestRate)
-      // May overflow!!!!!!!
-      const netGain = Number(sum) * interestRate
-      console.log(netGain)
-      setUnlockedFunds(sum)
-      setInterestGained(netGain - Number(sum))
-    } else {
-      setUnlockedFunds("0")
-    }
-    console.log("set unlocked")
   }
 
-  const withdrawFunds = async (amount) => {
-    if (!provider) return;
+  const confirmSubmission = async () => {
     const contract = new ethers.Contract(id.toString(), contractsAbi, signer);
-    const tx = await contract.withdrawLiquidity(contractInfo.Batches);
-    await tx.wait();
-  };
+    const tx = await contract.initialiseVault();
+    alert("Sending confirmation. Pending...")
+    tx.wait()
+    alert("Sent");
+  }
 
   // Loading data on page load
   useEffect(() => {
     const loadData = async () => {
-      setLoading(true);
-      await getContractData();
-      setLoading(false);
+      // await getContractData();
     };
     loadData();
   }, [provider]);
 
   useEffect(() => {
-    getWithdrawalStatus();
-    getBatchDeposits();
+    // getWithdrawalStatus();
+    // getBatchDeposits();
   }, [contractInfo]);
 
   useEffect(() => {
-    getAvailableBalance()
+    // getAvailableBalance()
   }, [batchRepaid])
+
+  useEffect(() => {
+    connectWallet();
+    console.log("Got wallet")
+  },[])
 
   return (
     <div className="Review">
-      <Header connectWallet={connectWallet} />
+      <Header connectWallet={connectWallet} wallet={wallet}/>
+      {loading
+      && <>
+      <div className="review__adminLogin">
+      <h3 className="admin__signText">Sign a transaction to verify admin status.</h3>
+      <button className="button" onClick={checkAdmin}>Sign-in via Ethereum</button> 
+      </div>
+      </>
+      }
       {!loading && (
         <>
           <ReviewHeader
@@ -262,10 +201,9 @@ const Review = () => {
             APR={contractInfo ? contractInfo.APR : "0%"}
             borrowBalance={borrowBalance ? borrowBalance : 0}
             nativeBalance={nativeBalance ? nativeBalance : 0}
-            lendFunds={lendFunds}
-            withdrawFunds={withdrawFunds}
             unlockedFunds={unlockedFunds}
             interestGained={interestGained}
+            confirmSubmission={confirmSubmission}
           />
         </>
       )}

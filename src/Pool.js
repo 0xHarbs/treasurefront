@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import { useEffect, useState } from "react";
 import { BigNumber, ethers } from "ethers";
 import { useParams } from "react-router-dom";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const Pool = () => {
   const { id } = useParams();
@@ -248,7 +249,7 @@ const Pool = () => {
   return (
     <div className="Pool">
       <Header connectWallet={connectWallet} wallet={wallet}/>
-      {!loading && (
+      {!loading ? 
         <>
           <PoolHeader
             RequestedLoan={contractInfo ? contractInfo.RequestedLoan : 0}
@@ -275,7 +276,11 @@ const Pool = () => {
             interestGained={interestGained}
           />
         </>
-      )}
+        :
+        <>
+        <ClipLoader color={"red"} size={100}/>
+        </>
+      }
     </div>
   );
 };

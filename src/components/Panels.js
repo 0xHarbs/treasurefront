@@ -6,37 +6,48 @@ import { Link } from "react-router-dom";
 function Panels() {
   return (
     <div className="panels">
-      <div className="panels__text">
-        <h1>Built by treasury managers, for treasury managers.</h1>
-        <p>
-          Treasure deliver open-source treasury lending and support services to
-          help you earn on your native token and deliver open-source treasury
-          lending and support.
-        </p>
-        <div className="panels__bulletPoints">
-          <li>Total transparency for your community</li>
-          <li>Total transparency for your community</li>
-          <li>Total transparency for your community</li>
+      <div className="panels__row">
+        <div className="panels__text">
+          <h1>Built by treasury managers, for treasury managers.</h1>
+          <p>
+            Treasure deliver open-source treasury lending and support services
+            to help you earn on your native token and deliver open-source
+            treasury lending and support.
+          </p>
+          <div className="panels__bulletPoints">
+            <li>Total transparency for your community</li>
+            <li>Total transparency for your community</li>
+            <li>Total transparency for your community</li>
+          </div>
+          <div className="panels__buttons">
+            <Link to="choose">
+              <button className="button panelsButton">Launch App</button>
+            </Link>
+            <p style={{ color: "#FDC943" }}>Read the docs</p>
+          </div>
         </div>
-        <div className="panels__buttons">
-          <Link to="choose">
-          <button className="button panelsButton">Launch App</button>
-          </Link>
-          <p style={{ color: "#FDC943" }}>Read the docs</p>
+        <div className="panels__image">
+          <img src="https://svgsilh.com/svg/2497813.svg"></img>
         </div>
       </div>
-      <div className="panels__text">
-        <h1>Top DAOs manage funds on Treasure</h1>
-        <p>
-          Treasure is commited to fostering the growth of web3 by helpding DAOs
-          to deploy their native tokens. We believe the value that can be gained
-          through unlocking yield can propel growth and give teams an edge.
-        </p>
-        <div className="panels__buttons">
-        <Link to="choose">
-          <button className="button panelsButton">Launch App</button>
-          </Link>
-          <p style={{ color: "#FDC943" }}>Read the docs</p>
+      <div className="panels__row">
+        <div className="panels__imageCounter">
+          <img src="https://freesvg.org/img/1379964998.png"></img>
+        </div>
+        <div className="panels__text">
+          <h1>Top DAOs manage funds on Treasure</h1>
+          <p>
+            Treasure is commited to fostering the growth of web3 by helpding
+            DAOs to deploy their native tokens. We believe the value that can be
+            gained through unlocking yield can propel growth and give teams an
+            edge.
+          </p>
+          <div className="panels__buttons">
+            <Link to="choose">
+              <button className="button panelsButton">Launch App</button>
+            </Link>
+            <p style={{ color: "#FDC943" }}>Read the docs</p>
+          </div>
         </div>
       </div>
       <div className="panels__stats">

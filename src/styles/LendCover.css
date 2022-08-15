@@ -40,9 +40,11 @@
 
 .lendCover__statsContainer {
     display: flex;
+    align-items: center;
 }
 
 .lendCover__stat {
+    width: 30%;
     padding: 0px 32px;
 }
 

@@ -154,7 +154,7 @@ const ReviewActions = (params) => {
           </div>
         </div>
         <div className="reviewActions__buttonContainer">
-          <button className="button">Confirm</button>
+          <button className="button" onClick={params.confirmSubmission} >Confirm</button>
         </div>
       </div>
     </div>

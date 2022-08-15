@@ -27,7 +27,7 @@ function Testimonials() {
               launch”
             </h3>
             <div className="testimonials__profileBucket">
-              <img src="https://i.pinimg.com/736x/25/78/61/25786134576ce0344893b33a051160b1.jpg"></img>
+              <img src="https://expertphotography.b-cdn.net/wp-content/uploads/2020/08/social-media-profile-photos.jpg"></img>
               <div className="testimonials__profileColumn">
               <p className="testimonials__name">Becky Stell</p>
               <p className="testimonials__title">Sr. Engineer - Fauxchain</p>
@@ -41,7 +41,7 @@ function Testimonials() {
               launch”
             </h3>
             <div className="testimonials__profileBucket">
-              <img src="https://i.pinimg.com/736x/25/78/61/25786134576ce0344893b33a051160b1.jpg"></img>
+              <img src="https://images.pexels.com/photos/1704488/pexels-photo-1704488.jpeg?cs=srgb&dl=pexels-suliman-sallehi-1704488.jpg&fm=jpg"></img>
               <div className="testimonials__profileColumn">
               <p className="testimonials__name">Ethan Jordan</p>
               <p className="testimonials__title">Block Analyst - Enzotech</p>

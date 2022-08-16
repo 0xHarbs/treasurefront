@@ -19,21 +19,21 @@ const AdminSummary = (params) => {
           <div className="adminsummary__containerFlex">
             <div className="adminsummary__textContainer">
               <div className="adminsummary__textBox">
-                <p>Current Loans</p>
+                <p>Loan Request</p>
                 <h3>{params.loanRequest ? params.loanRequest : "0"}</h3>
               </div>
               <div className="adminsummary__textBox">
-                <p>APR</p>
-                <h3>{params.APR ? params.APR : "0"}</h3>
+                <p>Locked Supply</p>
+                <h3>{params.lockedSupply ? params.lockedSupply : "0"}</h3>
               </div>
             </div>
             <div className="adminsummary__textContainer">
               <div className="adminsummary__textBox">
-                <p>Collateral</p>
-                <h3>{params.collateral ? params.collateral : "0"}</h3>
+                <p>APR</p>
+                <h3>{params.APR ? params.APR : "0"}</h3>
               </div>
               <div className="adminsummary__textBox">
-                <p>Backers</p>
+                <p>Price</p>
                 <h3>{params.price ? params.price : "0"}</h3>
               </div>
             </div>

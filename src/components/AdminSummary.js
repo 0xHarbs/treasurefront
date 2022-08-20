@@ -39,7 +39,7 @@ const AdminSummary = (params) => {
             </div>
           </div>
           <div className="adminsummary__link">
-            <Link to={`/review`}>
+            <Link to={`/review/${params.contract}`}>
               <h3
                 style={{
                   color: "#FDC943",

@@ -11,7 +11,7 @@ const LendSummary = (params) => {
           <img className="lendsummary__logo" src={params.logo} alt="logo" />
           <div className="lendsummary__column">
             <h1>{params.name}</h1>
-            <p>Decentralised exchange</p>
+            <p>{params.description}</p>
           </div>
         </div>
         <div className="lendsummary__contentContainer">
@@ -39,7 +39,7 @@ const LendSummary = (params) => {
             </div>
           </div>
           <div className="lendsummary__link">
-            <Link to={`/pool/${params.Contract}`}>
+            <Link to={`/pool`}>
               <h3
                 style={{
                   color: "#FDC943",

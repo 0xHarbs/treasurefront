@@ -9,26 +9,23 @@ function Info() {
       <div className="info__valueSection">
         <div className="info__valuePoints">
           <div className="info__valueBucket">
-            <h3>Seamless connection to any API tools</h3>
+            <h3>Lend stablecoins to earn yield in native tokens</h3>
             <p>
-              Your data can be transformed, organized, and shared across
-              applications for anyone to query with just a dew keystrokes.
+              Lend your stablecoins and earn yield in native tokens from projects that  you support.
             </p>
             <p style={{color: '#FDC943', margin: '32px 0px 0px 0px'}}>Learn more</p>
           </div>
           <div className="info__valueBucket">
-          <h3>Seamless connection to any API tools</h3>
+          <h3>Borrow stablecoins and pay with native tokens</h3>
             <p>
-              Your data can be transformed, organized, and shared across
-              applications for anyone to query with just a dew keystrokes.
+              Lock up collateral in your native token to borrow stablecoins from lenders, paying the APR in your native token.
             </p>
             <p style={{color: '#FDC943', margin: '32px 0px 0px 0px'}}>Learn more</p>
           </div>
           <div className="info__valueBucket">
-          <h3>Seamless connection to any API tools</h3>
+          <h3>Earn diversified yield on borrowed stablecoins</h3>
             <p>
-              Your data can be transformed, organized, and shared across
-              applications for anyone to query with just a dew keystrokes.
+              Deploy funds to a series of vaults that earn diversiified yields in stablecoins. Return 2-3x the cost of borrowing.
             </p>
             <p style={{color: '#FDC943', margin: '32px 0px 0px 0px'}}>Learn more</p>
           </div>

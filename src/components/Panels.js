@@ -15,9 +15,9 @@ function Panels() {
             treasury lending and support.
           </p>
           <div className="panels__bulletPoints">
-            <li>Total transparency for your community</li>
-            <li>Total transparency for your community</li>
-            <li>Total transparency for your community</li>
+            <li>Simple process to borrow stablecoins</li>
+            <li>Easily deploy funds to yielding strategies</li>
+            <li>Earn yield to drive growth in your project</li>
           </div>
           <div className="panels__buttons">
             <Link to="choose">
@@ -37,7 +37,7 @@ function Panels() {
         <div className="panels__text">
           <h1>Top DAOs manage funds on Treasure</h1>
           <p>
-            Treasure is commited to fostering the growth of web3 by helpding
+            Treasure is commited to fostering the growth of web3 by helping
             DAOs to deploy their native tokens. We believe the value that can be
             gained through unlocking yield can propel growth and give teams an
             edge.

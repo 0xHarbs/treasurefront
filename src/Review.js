@@ -45,7 +45,8 @@ const Review = () => {
     "function batchToDeposits(uint54) external view returns (uint256)",
     "function addressDepositsToBatch(address, uint256) external view returns (uint256)",
     "function batchNumberRepaid(uint64) external view returns (bool)",
-    "function initialiseVault() external"
+    "function initialiseVault() external",
+    "function managerAddress() external view returns (address)"
   ];
 
   const erc20Abi = [
@@ -84,6 +85,7 @@ const Review = () => {
     const lockedValue = await contract.lockedTokenValue();
     const collateralisationRatio = await contract.collateralisationRatio();
     const batches = await contract.batchNumber();
+    const managerAddress = await contract.managerAddress()
 
     // Get the native token and balance
     const nativeToken = await contract.nativeToken();
@@ -91,8 +93,6 @@ const Review = () => {
 
     const nativeContract = new ethers.Contract(nativeToken, erc20Abi, provider);
     const borrowContract = new ethers.Contract(borrowToken, erc20Abi, provider);
-    const nativeBalance = await nativeContract.balanceOf(wallet);
-    const borrowBalance = await borrowContract.balanceOf(wallet);
     const nativeDecimals = await nativeContract.decimals();
     const borrowDecimals = await borrowContract.decimals();
 
@@ -109,6 +109,7 @@ const Review = () => {
       LockedCollateral: numberWithCommas(lockedValue.toString()),
       CollateralisationRatio: collateralisationRatio.toString(),
       Batches: batches.toString(),
+      Manager: managerAddress.substring(0,6),
     };
     setContractInfo(contractInfo);
     setBorrowBalance(ethers.utils.formatUnits(borrowBalance, borrowDecimals));
@@ -117,6 +118,7 @@ const Review = () => {
     setBorrowContract(borrowContract);
     setBorrowAddress(borrowToken);
     setnativeAddress(nativeToken);
+    console.log(contractInfo)
     console.log("Got contract Info");
   };
 
@@ -139,7 +141,8 @@ const Review = () => {
     }
   }
 
-  const confirmSubmission = async () => {
+  const confirmSubmission = async (checked) => {
+    if(!checked) return;
     const contract = new ethers.Contract(id.toString(), contractsAbi, signer);
     const tx = await contract.initialiseVault();
     alert("Sending confirmation. Pending...")
@@ -150,19 +153,11 @@ const Review = () => {
   // Loading data on page load
   useEffect(() => {
     const loadData = async () => {
-      // await getContractData();
+      await getContractData();
+      setLoading(false)
     };
     loadData();
   }, [provider]);
-
-  useEffect(() => {
-    // getWithdrawalStatus();
-    // getBatchDeposits();
-  }, [contractInfo]);
-
-  useEffect(() => {
-    // getAvailableBalance()
-  }, [batchRepaid])
 
   useEffect(() => {
     connectWallet();
@@ -172,19 +167,11 @@ const Review = () => {
   return (
     <div className="Review">
       <Header connectWallet={connectWallet} wallet={wallet}/>
-      {loading
-      && <>
-      <div className="review__adminLogin">
-      <h3 className="admin__signText">Sign a transaction to verify admin status.</h3>
-      <button className="button" onClick={checkAdmin}>Sign-in via Ethereum</button> 
-      </div>
-      </>
-      }
       {!loading && (
         <>
           <ReviewHeader
             RequestedLoan={contractInfo ? contractInfo.RequestedLoan : 0}
-            FundingRate={contractInfo ? contractInfo.FundingRate : 0}
+            Collateral={contractInfo ? contractInfo.LockedCollateral : 0}
             APR={contractInfo ? contractInfo.APR : "0%"}
           />
           <ReviewOption
@@ -192,17 +179,13 @@ const Review = () => {
             CollateralisationRatio={
               contractInfo ? contractInfo.CollateralisationRatio : 0
             }
-            MaxBorrowAmount={contractInfo ? contractInfo.MaxBorrowAmount : 0}
+            MaxAmount={contractInfo ? contractInfo.MaxBorrowAmount : 0}
             APR={contractInfo ? contractInfo.APR : "0%"}
             Outstanding={contractInfo ? contractInfo.Outstanding : 0}
             Batches={contractInfo ? contractInfo.Batches : 0}
+            Manager={contractInfo ? contractInfo.Manager : "0x0"}
           />
           <ReviewActions
-            APR={contractInfo ? contractInfo.APR : "0%"}
-            borrowBalance={borrowBalance ? borrowBalance : 0}
-            nativeBalance={nativeBalance ? nativeBalance : 0}
-            unlockedFunds={unlockedFunds}
-            interestGained={interestGained}
             confirmSubmission={confirmSubmission}
           />
         </>

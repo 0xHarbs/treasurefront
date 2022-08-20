@@ -61,6 +61,29 @@ const ReviewActions = (params) => {
     }
   };
 
+  const checkInputs = () => {
+  let sum = 0;
+  if (tokenPriceVerified === true) {
+    sum += 1;
+  }
+  if (lockedSupplyVerified === true) {
+    sum += 1;
+  }
+  if (DEXLiquidityVerified === true) {
+    sum += 1;
+  }
+  if (deployerVerified === true) {
+    sum += 1;
+  }
+  if (collateralRatioVerified === true) {
+    sum += 1;
+  }
+  if (verifiedAdmin === true) {
+    sum += 1;
+  }
+  return sum === 6;
+  }
+
   return (
     <div className="reviewActions">
       <div className="reviewActions__stats">
@@ -84,7 +107,7 @@ const ReviewActions = (params) => {
               <input
                 className="reviewActions__input"
                 type="text"
-                value="DEX Liquidity more than 30% of request"
+                value="Liquidity >30% request"
               ></input>
               {DEXLiquidityVerified ? (
                 <CheckBoxIcon />
@@ -98,7 +121,7 @@ const ReviewActions = (params) => {
               <input
                 className="reviewActions__input"
                 type="text"
-                value="Locked less than 30%"
+                value="Locked <30% supply"
               ></input>
               {lockedSupplyVerified ? (
                 <CheckBoxIcon />
@@ -110,7 +133,7 @@ const ReviewActions = (params) => {
               <input
                 className="reviewActions__input"
                 type="text"
-                value="Verified contract deployer address"
+                value="Verified contract deployer"
               ></input>
               {deployerVerified ? (
                 <CheckBoxIcon />
@@ -127,7 +150,7 @@ const ReviewActions = (params) => {
               <input
                 className="reviewActions__input"
                 type="text"
-                value="Request less than 3x collateral"
+                value="Request <3x collateral"
               ></input>
               {collateralRatioVerified ? (
                 <CheckBoxIcon />
@@ -154,7 +177,10 @@ const ReviewActions = (params) => {
           </div>
         </div>
         <div className="reviewActions__buttonContainer">
-          <button className="button" onClick={params.confirmSubmission} >Confirm</button>
+          <button className="button" onClick={() => {
+            let completedCheck = checkInputs()
+            params.confirmSubmission(completedCheck)
+            }} >Confirm</button>
         </div>
       </div>
     </div>

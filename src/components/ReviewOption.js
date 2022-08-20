@@ -50,10 +50,10 @@ const ReviewOption = (params) => {
           </div>
           <div className="reviewOption__sizeRow">
             <div className="reviewOption__sizeColumn">
-              <p className="reviewOption__headers">Request</p>
-              <h3 className="reviewOption__boldText">$7,000,000</h3>
+              <p className="reviewOption__headers">Max</p>
+              <h3 className="reviewOption__boldText">${params.MaxAmount}</h3>
               <p className="reviewOption__headers">Admin</p>
-              <h3 className="reviewOption__boldText">0x800</h3>
+              <h3 className="reviewOption__boldText">{params.Manager}</h3>
             </div>
             <div>
               <p className="reviewOption__headers">Collateral</p>

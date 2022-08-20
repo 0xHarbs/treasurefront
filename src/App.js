@@ -22,7 +22,7 @@ function App() {
           <Route path="/pool/:id" element={<Pool />} />
           <Route path="/borrow" element={<Borrow />} />
           <Route path="/admin" element={<Admin />} />
-          <Route path="/review" element={<Review />} />
+          <Route path="/review/:id" element={<Review />} />
         </Routes>
         <Footer />
       </Router>

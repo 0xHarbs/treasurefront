@@ -110,6 +110,7 @@ const Lend = (params) => {
           APR={contractInfo ? `${contractInfo[0].APR}%` : "10%"}
           Backers={1200}
           Contract={contractInfo ? `${contractInfo[0].Contract}` : "0" }
+          description={"Liquidity Protocol"}
         />
         <LendSummary
           name={"Uniswap"}
@@ -120,6 +121,7 @@ const Lend = (params) => {
           fundingRate={"89%"}
           APR={"10%"}
           Backers={2350}
+          description={"Decentralised Exchange"}
         />
         <LendSummary
           name={"Lido"}
@@ -130,6 +132,7 @@ const Lend = (params) => {
           fundingRate={"68%"}
           APR={"10%"}
           Backers={780}
+          description={"Staking protocol"}
         />
         <LendSummary
           name={"Yearn"}
@@ -138,6 +141,7 @@ const Lend = (params) => {
           fundingRate={"40%"}
           APR={"14%"}
           Backers={650}
+          description={"Yield generating protocol"}
         />
         <LendSummary
           name={"DyDx"}
@@ -146,6 +150,7 @@ const Lend = (params) => {
           fundingRate={"89%"}
           APR={"15%"}
           Backers={1743}
+          description={"Decentralised Exchange"}
         />
         <LendSummary
           name={"Maple Finance"}
@@ -156,6 +161,7 @@ const Lend = (params) => {
           fundingRate={"68%"}
           APR={"7%"}
           Backers={450}
+          description={"Lending protocol"}
         />
       </div>
       }

@@ -5,6 +5,8 @@ import AdminSummary from "./components/AdminSummary";
 import Header from "./components/Header";
 import { useEffect, useState } from "react";
 import { ethers } from "ethers";
+import ClipLoader from "react-spinners/ClipLoader";
+
 
 const Admin = (params) => {
   const [wallet, setWallet] = useState(null);
@@ -28,7 +30,7 @@ const Admin = (params) => {
     "function borrowToken() external view returns (address)",
     "function vaultUnlocked() external view returns (bool)"
   ];
-  const erc20Abi = ["function decimals() public view returns (uint8)"];
+  const erc20Abi = ["function decimals() public view returns (uint8)", "function symbol() external view returns (string)"];
   const adminAddress = "0xC59b3779A592B620028c77Ab1742c9960e038e4C";
 
   // Core functionality
@@ -88,13 +90,15 @@ const Admin = (params) => {
       const unlocked = await contract.vaultUnlocked();
       const maxBorrowAmount = ethers.utils.formatUnits(await contract.maxBorrowAmount(), borrowDecimals);
       const lockedSupply = ethers.utils.formatUnits(await contract.lockedTokenSupply(), nativeDecimals);
+      const nativeSymbol = await nativeToken.symbol();
       const contractInfo = {
         RequestedLoan: numberWithCommas(requestedLoan.toString()),
         APR: (APR / 100).toString(),
         MaxBorrowAmount: numberWithCommas(maxBorrowAmount.toString()),
         lockedSupply: numberWithCommas(lockedSupply.toString()),
         Contract: contracts[i],
-        unlocked: unlocked
+        unlocked: unlocked,
+        symbol: nativeSymbol
       };
       contractInfoList.push(contractInfo);
       console.log(contractInfo);
@@ -132,6 +136,7 @@ const Admin = (params) => {
   useEffect(() => {
     const loadContractData = async () => {
       await getContractData();
+      setLoading(false);
     };
     loadContractData();
   }, [contractList]);
@@ -139,33 +144,26 @@ const Admin = (params) => {
   return (
     <div className="Admin">
       <Header connectWallet={connectWallet} wallet={wallet} />
-      {loading ? (
+      {!loading ? (
         <>
-          <h3 className="admin__signText">
-            Sign a transaction to verify admin status.
-          </h3>
-          <button className="button" onClick={checkAdmin}>
-            Sign-in via Ethereum
-          </button>
-        </>
-      ) : (
         <AdminCover />
-      )}
-      {!loading && (
         <div className="admin__openProjects">
-          {/* {contractInfo &&  contractInfo.map(index => {
-            if(!index.unlocked) {
-            return (
-            <AdminSummary 
-            index={index} 
-            loanRequested={index.RequestedLoan}
-            APR={index.APR}
-            maxBorrowAmount={index.MaxBorrowAmount}
-            lockedSupply={index.lockedSupply}
-            contract={index.Contract}
-            />
-            )
-            }})} */}
+          {contractInfo &&
+            contractInfo.map((contract, index) => {
+              return (
+                <AdminSummary
+                name={contractInfo[index].symbol}
+                logo={"https://cryptologos.cc/logos/siacoin-sc-logo.png"}
+                loanRequest={contractInfo[index].RequestedLoan}
+                APR={contractInfo[index].APR}
+                price={contractInfo[index].price}
+                contract={contractInfo[index].Contract}
+                description={"Decentralised file hosting"}
+                lockedSupply={contractInfo[index].lockedSupply}
+                />
+              );
+            })
+          }
           <AdminSummary
             name={"Siacoin"}
             logo={"https://cryptologos.cc/logos/siacoin-sc-logo.png"}
@@ -202,7 +200,13 @@ const Admin = (params) => {
             lockedSupply={"1,000,000"}
           />
         </div>
-      )}
+        </>
+      )
+      :
+      <>
+        <ClipLoader color={"red"} size={100}/>
+      </>
+      }
     </div>
   );
 };
